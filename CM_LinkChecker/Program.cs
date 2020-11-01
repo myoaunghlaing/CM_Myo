@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace CM_LinkChecker
 {
     /// <summary>
-    /// Assumption 1. HTML tags read from file
+    /// Assumption 1. HTML tags read from file, please update the file path
     /// 2. The destination URL allows Head Request
     /// </summary>
     class Program
@@ -20,6 +20,7 @@ namespace CM_LinkChecker
         {
             try
             {
+                // Update the html file path here
                 var path = @"PathToFile\File.html";
                 Dictionary<string, String> checkedURLs = new Dictionary<string, string>();
 
