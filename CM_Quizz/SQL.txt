@@ -1,0 +1,44 @@
+﻿/* QUESTION 5.A */
+SELECT DISTINCT S.Name
+FROM [Salesperson] S
+INNER JOIN [Orders] O ON S.SalespersonID = O.SalespersonID
+INNER JOIN [Customer] C ON O.CustomerID = C.CustomerID
+WHERE C.Name = 'George'
+
+/* QUESTION 5.B */
+SELECT DISTINCT S.Name
+FROM [Salesperson] S
+WHERE S.SalespersonID  NOT IN (
+	SELECT DISTINCT S.SalespersonID
+	FROM [Salesperson] S
+	INNER JOIN [Orders] O ON S.SalespersonID = O.SalespersonID
+	INNER JOIN [Customer] C ON O.CustomerID = C.CustomerID
+	WHERE C.Name = 'George') 
+
+/* QUESTION 5.C */
+SELECT S.Name,COUNT(S.SalespersonID) NumOfOrders
+FROM [Salesperson] S
+INNER JOIN  [Orders] O ON S.SalespersonID = O.SalespersonID
+GROUP BY S.SalespersonID, S.Name
+HAVING COUNT(S.SalespersonID) >= 2
+
+/* QUESTION 6.A */
+SELECT Name FROM
+(
+	SELECT Name, ROW_NUMBER() OVER (ORDER BY Salary DESC) ROWNUM
+	FROM Salesperson S
+) A
+WHERE A.ROWNUM = 3
+
+/* QUESTION 6.B */
+SELECT CustomerID, SUM(NumberOfUnits*CostOfUnit) TotalOrderValue
+INTO BigOrders
+FROM Orders
+GROUP BY CustomerID
+HAVING SUM(NumberOfUnits*CostOfUnit) > 1000
+
+/* QUESTION 6.C */
+SELECT YEAR(OrderDate) YR, MONTH(OrderDate) MTH, SUM(NumberOfUnits*CostOfUnit) TotalAmount
+FROM Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY YEAR(OrderDate) DESC, MONTH(OrderDate) DESC
