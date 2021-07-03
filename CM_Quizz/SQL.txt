@@ -1,4 +1,4 @@
-﻿/* QUESTION 5.A */
+﻿/* QUESTION 5.A  hello */   
 SELECT DISTINCT S.Name
 FROM [Salesperson] S
 INNER JOIN [Orders] O ON S.SalespersonID = O.SalespersonID
